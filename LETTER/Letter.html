@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pixel Letter for Crista</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', monospace;
+    height: 100vh;
+    overflow: hidden;
+    background: url('grass.png') no-repeat center center;
+    background-size: cover;
+    position: relative;
+}
+
+#wildflowers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('wild-flower.png') repeat;
+    image-rendering: pixelated;
+    z-index: 0;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Wiggle and shimmer button */
+@keyframes wiggle {
+    0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+    25% { transform: translate(-50%, -50%) rotate(10deg); }
+    50% { transform: translate(-50%, -50%) rotate(-10deg); }
+    75% { transform: translate(-50%, -50%) rotate(10deg); }
+}
+
+@keyframes shimmer {
+    0% { box-shadow: 0 0 5px #fff; }
+    50% { box-shadow: 0 0 20px #fff; }
+    100% { box-shadow: 0 0 5px #fff; }
+}
+
+#openBtn {
+    position: absolute;
+    padding: 12px 20px;
+    font-size: 18px;
+    background: #ff7b7b;
+    border: 3px solid #000;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.1s;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    animation: wiggle 2s infinite ease-in-out, shimmer 2s infinite ease-in-out;
+}
+
+#openBtn:hover {
+    background: #ff5757;
+}
+
+#letterBox {
+    display: none;
+    width: 380px;
+    padding: 25px;
+    border: 4px solid #333;
+    background: #fff;
+    image-rendering: pixelated;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 0px 0px 8px #ffe7c2, 0px 0px 0px 12px #333;
+    animation: unfold 1s ease forwards;
+    z-index: 5;
+}
+
+/* Sparkling effect around text */
+@keyframes sparkleText {
+    0% { text-shadow: 0 0 2px #fff, 0 0 5px #ff9, 0 0 10px #f9f; }
+    50% { text-shadow: 0 0 5px #fff, 0 0 15px #ff0, 0 0 20px #f0f; }
+    100% { text-shadow: 0 0 2px #fff, 0 0 5px #ff9, 0 0 10px #f9f; }
+}
+
+.letterText p { animation: sparkleText 3s infinite; }
+
+@keyframes unfold {
+    0% { transform: translate(-50%, -50%) scaleY(0); }
+    100% { transform: translate(-50%, -50%) scaleY(1); }
+}
+
+/* Floating decorations */
+.floating {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    image-rendering: pixelated;
+}
+
+/* Whimsical floating paths */
+@keyframes floatMagic1 {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(15px,-10px); }
+    50% { transform: translate(0,-20px); }
+    75% { transform: translate(-15px,-10px); }
+    100% { transform: translate(0,0); }
+}
+
+@keyframes floatMagic2 {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(-10px,-15px); }
+    50% { transform: translate(0,-25px); }
+    75% { transform: translate(10px,-15px); }
+    100% { transform: translate(0,0); }
+}
+
+.two { animation: floatMagic1 6s infinite ease-in-out; }
+.wand { animation: floatMagic2 5s infinite ease-in-out; }
+.hot-air-balloon { animation: floatMagic1 8s infinite ease-in-out; }
+.love { animation: floatMagic2 7s infinite ease-in-out; }
+
+p {
+    font-size: 15px;
+    line-height: 1.5;
+}
+</style>
+</head>
+<body>
+
+<div id="wildflowers"></div>
+
+<div class="container">
+    <button id="openBtn">Open Letter ✉️</button>
+
+    <div id="letterBox" class="letterText">
+        <img src="two.png" class="floating two" style="top:-10px; left:-10px;">
+        <img src="wand.png" class="floating wand" style="top:10px; right:-15px;">
+        <img src="hot-air-balloon.png" class="floating hot-air-balloon" style="top:-30px; left:150px;">
+        <img src="love-always-wins.png" class="floating love" style="bottom:10px; right:10px;">
+
+        <p><strong>Dear Crista,</strong></p>
+        <p>
+            I know you haven’t been feeling well lately—with all the stress and whatever else 
+            you might be going through. I may not know every reason, but I’m truly proud of you 
+            for making it this far. Just keep going, and don’t forget to pray to God; He will 
+            always lift your spirit and lighten your mood.
+        </p>
+        <p>
+            I promise that I’ll always be here for you, even if you don’t want me to be. I really 
+            care about you, and I really like you (supposed to be “love,” but yeah haha). Even if 
+            I didn’t like you—which won’t ever happen—I’d still care for you.
+        </p>
+        <p>
+            Please take care always, pray every morning and every night, and you can rant to me 
+            anytime. I’ll fight along with you, even spiritually.
+        </p>
+        <p>
+            Have a great day ahead of youuuuuuuu. Peace ✌️💗
+        </p>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bgm" loop>
+        <source src="MAX - IT'S YOU (Lyrics) feat. keshi.mp3" type="audio/mpeg">
+    </audio>
+</div>
+
+<script>
+let moves = 0;
+const btn = document.getElementById('openBtn');
+const letter = document.getElementById('letterBox');
+const bgm = document.getElementById('bgm');
+
+btn.addEventListener('click', () => {
+    if (moves < 5) {
+        const x = Math.random() * (window.innerWidth - 150);
+        const y = Math.random() * (window.innerHeight - 60);
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+        moves++;
+    } else {
+        btn.style.display = 'none';
+        letter.style.display = 'block';
+        bgm.play();
+    }
+});
+</script>
+
+</body>
+</html>
